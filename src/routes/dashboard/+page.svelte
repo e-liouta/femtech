@@ -29,9 +29,9 @@
 		body: string;
 	};
 
-	let posts: Post[] = [];
-	let newTitle = "";
-	let newContent = "";
+	let posts = $state<Post[]>([]);
+	let newTitle = $state("");
+	let newContent = $state("");
 
 	// fernw tis anartiseis apo ti basi
 	onMount(async () => {
