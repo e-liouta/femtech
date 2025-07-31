@@ -80,25 +80,7 @@
 			posts = posts.filter((p) => p.id !== id);
 		}
 	}
-
-	async function logout() {
-		const { error } = await supabase.auth.signOut();
-		if (!error) {
-			alert("You have been logged out!");
-			window.location.href = "/login";
-		} else {
-			console.error("Logout error:", error.message);
-		}
-	}
 </script>
-
-{#await data.user}
-	<div>...Loading</div>
-{:then user}
-	{#if !user}
-		{goto(`/login?redirect=${document.location}`)}
-	{/if}
-{/await}
 
 <h1>Posts</h1>
 
@@ -114,4 +96,3 @@
 		<button on:click={() => deletePost(post.id)}>Delete</button>
 	</div>
 {/each}
-<button on:click={logout}>Logout</button>

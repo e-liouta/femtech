@@ -1,10 +1,9 @@
-import { redirect } from "@sveltejs/kit";
-import type { PageLoad } from "./$types";
+import type { LayoutLoad } from "./$types";
 import { supabase } from "$lib/supabaseClient";
 
 export const ssr = false;
 
-export const load: PageLoad = async (event) => {
+export const load: LayoutLoad = async (event) => {
 	return {
 		user: (async () => {
 			const {
