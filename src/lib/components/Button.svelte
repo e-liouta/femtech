@@ -1,10 +1,9 @@
 <script lang="ts">
-	export let type: "button" | "submit" | "reset" = "button";
 	export let disabled: boolean = false;
 	export let label: string = "";
 </script>
 
-<button {type} {disabled}>
+<button {disabled} {...$$restProps}>
 	<slot>{label}</slot>
 </button>
 

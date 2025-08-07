@@ -1,5 +1,12 @@
 <script lang="ts">
-	export let type: string = "text";
+	export let type:
+		| "text"
+		| "email"
+		| "number"
+		| "password"
+		| "textarea"
+		| "search"
+		| "url" = "text";
 	export let value: string = "";
 	export let placeholder: string = "";
 	export let required: boolean = false;

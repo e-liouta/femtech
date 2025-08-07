@@ -104,6 +104,10 @@
 			cancelEditing();
 		}
 	}
+
+	function testClick() {
+		alert("Button was clicked!");
+	}
 </script>
 
 <div class="wrapper">
@@ -111,8 +115,8 @@
 
 	<div class="newform">
 		<Input type="text" bind:bindValue={newTitle} placeholder="Title" />
-		<textarea bind:value={newContent} placeholder="Message"></textarea>
-		<Button on:click={createPost}>Post</Button>
+		<Input type="textarea" bind:bindValue={newContent} placeholder="Message" />
+		<Button onclick={createPost}>Post</Button>
 	</div>
 
 	{#each posts as post (post.id)}
@@ -123,15 +127,19 @@
 					bind:bindValue={editedTitle}
 					placeholder="Edit title"
 				/>
-				<textarea bind:value={editedBody} placeholder="Edit message"></textarea>
-				<Button on:click={() => saveEdit(post.id)}>Save</Button>
-				<Button on:click={cancelEditing}>Cancel</Button>
+				<Input
+					type="textarea"
+					bind:bindValue={editedBody}
+					placeholder="Edit message"
+				/>
+				<Button onclick={() => saveEdit(post.id)}>Save</Button>
+				<Button onclick={cancelEditing}>Cancel</Button>
 			{:else}
 				<h3>{post.title}</h3>
 				<p>{post.body}</p>
 				{#if post.user_id === userId}
-					<Button on:click={() => deletePost(post.id)}>Delete</Button>
-					<Button on:click={() => startEditing(post)}>Edit</Button>
+					<Button onclick={() => deletePost(post.id)}>Delete</Button>
+					<Button onclick={() => startEditing(post)}>Edit</Button>
 				{/if}
 			{/if}
 		</div>
