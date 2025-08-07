@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { supabase } from "$lib/supabaseClient";
+	import Input from "$lib/components/Input.svelte";
+	import Button from "$lib/components/Button.svelte";
 
 	let email = "";
 	let password = "";
@@ -37,19 +39,21 @@
 
 	<h2>Sign Up</h2>
 	<form on:submit|preventDefault={signUp}>
-		<input type="email" bind:value={email} placeholder="Email" required />
-		<input
+		<Input type="email" bind:bindValue={email} placeholder="Email" required />
+		<Input
 			type="password"
-			bind:value={password}
+			bind:bindValue={password}
 			placeholder="Password"
 			required
 		/>
-		<button type="submit">Sign Up</button>
+		<Button type="submit">Sign Up</Button>
 	</form>
 
 	{#if message}
 		<p>{message}</p>
 	{/if}
+
+	<p class="signin">Already have an account? <a href="/login">Log In</a></p>
 </div>
 
 <style lang="scss">
@@ -82,9 +86,22 @@
 		margin: 0;
 	}
 
+	h2 {
+		color: white;
+		font-size: 1.8rem;
+	}
+
 	p {
 		color: white;
 		font-size: 1.6rem;
 		padding-right: 35rem;
+	}
+
+	.signin a {
+		color: #e84f92;
+		text-decoration: none;
+		background-color: white;
+		padding: 0.2rem 0.6rem;
+		border-radius: 0.2rem;
 	}
 </style>
