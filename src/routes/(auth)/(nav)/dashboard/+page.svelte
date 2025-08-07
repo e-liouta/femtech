@@ -3,6 +3,8 @@
 	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
 	import type { PageData } from "./$types";
+	import Input from "$lib/components/Input.svelte";
+	import Button from "$lib/components/Button.svelte";
 
 	let { data }: { data: PageData } = $props();
 
@@ -104,26 +106,114 @@
 	}
 </script>
 
-<h1>Posts</h1>
+<div class="wrapper">
+	<h1>Posts</h1>
 
-<input type="text" bind:value={newTitle} placeholder="Title" />
-<textarea bind:value={newContent} placeholder="Message"></textarea>
-<button onclick={createPost}>Post</button>
-
-{#each posts as post (post.id)}
-	<div>
-		{#if editingPostId === post.id}
-			<input type="text" bind:value={editedTitle} placeholder="Edit title" />
-			<textarea bind:value={editedBody} placeholder="Edit message"></textarea>
-			<button onclick={() => saveEdit(post.id)}>Save</button>
-			<button onclick={cancelEditing}>Cancel</button>
-		{:else}
-			<h3>{post.title}</h3>
-			<p>{post.body}</p>
-			{#if post.user_id === userId}
-				<button onclick={() => deletePost(post.id)}>Delete</button>
-				<button onclick={() => startEditing(post)}>Edit</button>
-			{/if}
-		{/if}
+	<div class="newform">
+		<Input type="text" bind:bindValue={newTitle} placeholder="Title" />
+		<textarea bind:value={newContent} placeholder="Message"></textarea>
+		<Button on:click={createPost}>Post</Button>
 	</div>
-{/each}
+
+	{#each posts as post (post.id)}
+		<div class="postcard">
+			{#if editingPostId === post.id}
+				<Input
+					type="text"
+					bind:bindValue={editedTitle}
+					placeholder="Edit title"
+				/>
+				<textarea bind:value={editedBody} placeholder="Edit message"></textarea>
+				<Button on:click={() => saveEdit(post.id)}>Save</Button>
+				<Button on:click={cancelEditing}>Cancel</Button>
+			{:else}
+				<h3>{post.title}</h3>
+				<p>{post.body}</p>
+				{#if post.user_id === userId}
+					<Button on:click={() => deletePost(post.id)}>Delete</Button>
+					<Button on:click={() => startEditing(post)}>Edit</Button>
+				{/if}
+			{/if}
+		</div>
+	{/each}
+</div>
+
+<style lang="scss">
+	:global(html, body) {
+		margin: 0;
+		padding: 0;
+		font-family: "Inter", sans-serif;
+		background: url("../../../../lib/images/femtech-gradient.jpg") no-repeat
+			center center fixed;
+		background-size: cover;
+		background-position: center;
+		min-height: 100vh;
+		width: 100%;
+		min-height: 100vh;
+	}
+
+	.wrapper {
+		padding: 3rem 2rem;
+		max-width: 800px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	h1 {
+		color: white;
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	form,
+	.newform {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	input[type="text"],
+	textarea {
+		padding: 0.75rem 1rem;
+		border-radius: 8px;
+		border: none;
+		background-color: rgba(255, 255, 255, 0.9);
+		font-size: 1rem;
+		resize: vertical;
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 0 2px #ff5fa2;
+			background-color: #fff;
+		}
+	}
+
+	.postcard {
+		background: rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-radius: 0.8rem;
+		padding: 1.5rem;
+		color: white;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.postcard h3 {
+		color: black;
+		margin: 0 0 0.5rem;
+		font-size: 1.5rem;
+	}
+
+	.postcard p {
+		color: black;
+		margin: 0 0 1rem;
+		font-size: 1.1rem;
+	}
+
+	.postcard button {
+		margin-right: 0.5rem;
+	}
+</style>
