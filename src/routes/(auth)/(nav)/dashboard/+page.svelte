@@ -10,6 +10,7 @@
 		title: string;
 		body: string;
 		user_id: string;
+		author_name: string;
 	};
 
 	let posts = $state<Post[]>([]);
@@ -23,7 +24,7 @@
 	// fernw tis anartiseis apo ti basi
 	onMount(async () => {
 		const { data, error } = await supabase
-			.from("posts")
+			.from("posts_with_author")
 			.select("*")
 			.order("created_at", { ascending: false });
 
@@ -130,10 +131,14 @@
 			{:else}
 				<h3>{post.title}</h3>
 				<p>{post.body}</p>
-				<p>Posted by: {post.user_id}</p>
+				<div class="postedby">
+					<span>Posted by: {post.author_name}</span>
+				</div>
 				{#if post.user_id === userId}
-					<Button onclick={() => deletePost(post.id)}>Delete</Button>
-					<Button onclick={() => startEditing(post)}>Edit</Button>
+					<div class="btns">
+						<Button onclick={() => deletePost(post.id)}>Delete</Button>
+						<Button onclick={() => startEditing(post)}>Edit</Button>
+					</div>
 				{/if}
 			{/if}
 		</div>
@@ -168,6 +173,16 @@
 		font-size: 3rem;
 		text-align: center;
 		margin-bottom: 2rem;
+	}
+
+	.postedby {
+		font-size: 0.8rem;
+		color: gray;
+		font-weight: bold;
+	}
+
+	.btns {
+		padding-top: 1rem;
 	}
 
 	form,
