@@ -1,10 +1,21 @@
 <script lang="ts">
-	export let disabled: boolean = false;
-	export let label: string = "";
+	import type { Snippet } from "svelte";
+
+	let {
+		type = "button",
+		disabled,
+		onclick = () => {},
+		children,
+	}: {
+		type?: "button" | "submit" | "reset";
+		disabled?: boolean;
+		onclick?: () => Promise<void> | void;
+		children: Snippet;
+	} = $props();
 </script>
 
-<button {disabled} {...$$restProps}>
-	<slot>{label}</slot>
+<button {disabled} {onclick} {type}>
+	{@render children()}
 </button>
 
 <style lang="scss">

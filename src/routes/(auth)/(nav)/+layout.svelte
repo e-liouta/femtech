@@ -17,8 +17,7 @@
 
 <nav>
 	<a href="/dashboard">Dashboard</a>
-	<a href="/test">Test</a>
-	<button on:click={logout}>Logout</button>
+	<button onclick={logout}>Logout</button>
 </nav>
 <div>
 	{@render children()}

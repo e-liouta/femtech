@@ -3,12 +3,12 @@
 	import Input from "$lib/components/Input.svelte";
 	import Button from "$lib/components/Button.svelte";
 
-	let email = "";
-	let password = "";
-	let message = "";
+	let email = $state("");
+	let password = $state("");
+	let message = $state("");
 
 	async function signUp() {
-		const { data, error } = await supabase.auth.signUp({
+		const { error } = await supabase.auth.signUp({
 			email,
 			password,
 		});
@@ -21,15 +21,6 @@
 	}
 </script>
 
-<head>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-		rel="stylesheet"
-	/>
-</head>
-
 <div class="wrapper">
 	<h1>Welcome to FemTech!</h1>
 	<p>
@@ -39,10 +30,10 @@
 
 	<h2>Sign Up</h2>
 	<form on:submit|preventDefault={signUp}>
-		<Input type="email" bind:bindValue={email} placeholder="Email" required />
+		<Input type="email" bind:value={email} placeholder="Email" required />
 		<Input
 			type="password"
-			bind:bindValue={password}
+			bind:value={password}
 			placeholder="Password"
 			required
 		/>

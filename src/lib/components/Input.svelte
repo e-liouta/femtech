@@ -1,21 +1,27 @@
 <script lang="ts">
-	export let type:
-		| "text"
-		| "email"
-		| "number"
-		| "password"
-		| "textarea"
-		| "search"
-		| "url" = "text";
-	export let value: string = "";
-	export let placeholder: string = "";
-	export let required: boolean = false;
-	export let name: string = "";
-	export let id: string = "";
-	export let bindValue: string;
+	let {
+		type,
+		value = $bindable(),
+		placeholder,
+		required,
+		name,
+	}: {
+		type?:
+			| "text"
+			| "email"
+			| "number"
+			| "password"
+			| "textarea"
+			| "search"
+			| "url";
+		value: string;
+		placeholder?: string;
+		required?: boolean;
+		name?: string;
+	} = $props();
 </script>
 
-<input bind:value={bindValue} {type} {placeholder} {required} {name} {id} />
+<input bind:value {type} {placeholder} {required} {name} />
 
 <style lang="scss">
 	input {

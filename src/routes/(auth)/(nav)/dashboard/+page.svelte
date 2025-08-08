@@ -2,11 +2,8 @@
 	import { supabase } from "$lib/supabaseClient";
 	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
-	import type { PageData } from "./$types";
 	import Input from "$lib/components/Input.svelte";
 	import Button from "$lib/components/Button.svelte";
-
-	let { data }: { data: PageData } = $props();
 
 	type Post = {
 		id: string;
@@ -114,22 +111,18 @@
 	<h1>Posts</h1>
 
 	<div class="newform">
-		<Input type="text" bind:bindValue={newTitle} placeholder="Title" />
-		<Input type="textarea" bind:bindValue={newContent} placeholder="Message" />
+		<Input type="text" bind:value={newTitle} placeholder="Title" />
+		<Input type="textarea" bind:value={newContent} placeholder="Message" />
 		<Button onclick={createPost}>Post</Button>
 	</div>
 
 	{#each posts as post (post.id)}
 		<div class="postcard">
 			{#if editingPostId === post.id}
-				<Input
-					type="text"
-					bind:bindValue={editedTitle}
-					placeholder="Edit title"
-				/>
+				<Input type="text" bind:value={editedTitle} placeholder="Edit title" />
 				<Input
 					type="textarea"
-					bind:bindValue={editedBody}
+					bind:value={editedBody}
 					placeholder="Edit message"
 				/>
 				<Button onclick={() => saveEdit(post.id)}>Save</Button>
@@ -137,6 +130,7 @@
 			{:else}
 				<h3>{post.title}</h3>
 				<p>{post.body}</p>
+				<p>Posted by: {post.user_id}</p>
 				{#if post.user_id === userId}
 					<Button onclick={() => deletePost(post.id)}>Delete</Button>
 					<Button onclick={() => startEditing(post)}>Edit</Button>

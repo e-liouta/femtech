@@ -32,10 +32,10 @@
 	</p>
 
 	<form on:submit|preventDefault={handleLogin}>
-		<Input type="email" bind:bindValue={email} placeholder="Email" required />
+		<Input type="email" bind:value={email} placeholder="Email" required />
 		<Input
 			type="password"
-			bind:bindValue={password}
+			bind:value={password}
 			placeholder="Password"
 			required
 		/>
