@@ -136,7 +136,9 @@
 				</div>
 				{#if post.user_id === userId}
 					<div class="btns">
-						<Button onclick={() => deletePost(post.id)}>Delete</Button>
+						<Button variant="secondary" onclick={() => deletePost(post.id)}
+							>Delete</Button
+						>
 						<Button onclick={() => startEditing(post)}>Edit</Button>
 					</div>
 				{/if}
