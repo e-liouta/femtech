@@ -132,7 +132,10 @@
 				<h3>{post.title}</h3>
 				<p>{post.body}</p>
 				<div class="postedby">
-					<span>Posted by: {post.author_name}</span>
+					<span
+						>Posted by: <a href={`/user/${post.user_id}`}>{post.author_name}</a
+						></span
+					>
 				</div>
 				{#if post.user_id === userId}
 					<div class="btns">
