@@ -186,6 +186,15 @@
 		font-weight: bold;
 	}
 
+	.postedby a {
+		text-decoration: none;
+		color: #ff5fa2;
+	}
+
+	.postedby a:hover {
+		color: black;
+	}
+
 	.btns {
 		padding-top: 1rem;
 	}

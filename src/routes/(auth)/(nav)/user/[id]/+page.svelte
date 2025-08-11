@@ -5,7 +5,6 @@
 	import { get } from "svelte/store";
 	import { goto } from "$app/navigation";
 
-	// Types matching your views
 	type PublicUser = {
 		id: string;
 		display_name: string | null;
@@ -106,7 +105,7 @@
 				{#if user?.bio}<p class="bio">{user.bio}</p>{/if}
 
 				{#if isMe}
-					<button class="edit" on:click={goEditProfile}>Edit profile</button>
+					<button class="edit" onclick={goEditProfile}>Edit profile</button>
 				{/if}
 			</div>
 		</div>
@@ -228,6 +227,6 @@
 		margin: 0 0 0.4rem;
 	}
 	.post .time {
-		color: #444;
+		color: black;
 	}
 </style>
